@@ -3,10 +3,9 @@ import { RapierRigidBody } from '@react-three/rapier';
 import Ecctrl, { EcctrlAnimation, EcctrlProps } from 'ecctrl';
 import { ForwardRefExoticComponent, RefAttributes, useEffect, useRef } from 'react';
 import { CharacterModel } from './CharacterModel';
-import { usePosition } from '../store/usePosition';
 import { useFrame } from '@react-three/fiber';
-import { usePointer } from '../store/usePointer';
 import { Vector3 } from 'three';
+import { usePosition } from '../store/usePosition';
 
 const keyboardMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -35,9 +34,7 @@ const animationSet = {
 const EcctrlController = Ecctrl as unknown as ForwardRefExoticComponent<EcctrlProps & RefAttributes<RapierRigidBody>>;
 
 export const Character = () => {
-  const startVoxel = usePointer(s => s.startVoxel);
   const position = usePosition(s => s.position);
-  const setPosition = usePosition(s => s.setPosition);
 
   const controllerRef = useRef<RapierRigidBody>();
 
@@ -46,8 +43,6 @@ export const Character = () => {
     if (body) {
       body.sleep();
     }
-
-    setPosition(new Vector3(startVoxel.x, startVoxel.y + 2.24, startVoxel.z));
 
     const unsubsribePosition = usePosition.subscribe(
       (state) => state.position,

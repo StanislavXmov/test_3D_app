@@ -5,6 +5,7 @@ import { useDevice } from './hooks/useDevice';
 import { Joystick } from './components/Joystick';
 import { Suspense } from 'react';
 import { Environment } from './environment/Environment';
+import { DefaultScene } from './scenes/DefaultScene';
 
 const dev = false;
 
@@ -25,6 +26,7 @@ function App() {
         <Suspense>
           {dev && <Perf position="top-left" />}
           <Environment />
+          <DefaultScene />
         </Suspense>
       </Canvas>
     </div>
