@@ -6,11 +6,31 @@ import { Joystick } from './components/Joystick';
 import { Suspense } from 'react';
 import { Environment } from './environment/Environment';
 import { DefaultScene } from './scenes/DefaultScene';
+import { Mods, useMode } from './store/useMode';
+import { Controllers, Hands, VRButton, XR } from '@react-three/xr';
 
 const dev = false;
 
 function App() {
   const isMobile = useDevice();
+  const mode = useMode(s => s.mode);
+
+  if (mode === Mods.vr) {
+    return (
+      <div className={styles.app}>
+        <VRButton />
+        <Canvas shadows>
+        <XR>
+          <Environment />
+          <Controllers />
+          <Hands />
+          
+          <DefaultScene />
+        </XR>
+        </Canvas>
+      </div>
+    );
+  }
   
   return (
     <div className={styles.app}>

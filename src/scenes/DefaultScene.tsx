@@ -1,10 +1,19 @@
 import { Physics, RigidBody } from '@react-three/rapier';
 import { Character } from '../components/Character';
+import { Mods, useMode } from '../store/useMode';
+import { VRPlayer } from '../components/VRPlayer';
 
 export const DefaultScene = () => {
+  const mode = useMode(s => s.mode);
+
+  let gameController = <Character />;
+  if (mode === Mods.vr) {
+    gameController = <VRPlayer />;
+  }
+  
   return (
     <Physics timeStep="vary">
-      <Character />
+      {gameController}
 
       <RigidBody 
         type="fixed" 
