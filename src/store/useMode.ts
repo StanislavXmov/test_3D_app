@@ -13,7 +13,7 @@ type GameState = {
 }
 
 export const useMode = create<GameState>()(subscribeWithSelector((set) => ({
-  mode: Mods.vr,
+  mode: Mods.default,
   setVR: () => set(() => ({mode: Mods.vr})),
   setDefault: () => set(() => ({mode: Mods.default})),
 })));

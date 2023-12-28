@@ -8,6 +8,7 @@ import { Environment } from './environment/Environment';
 import { DefaultScene } from './scenes/DefaultScene';
 import { Mods, useMode } from './store/useMode';
 import { Controllers, Hands, VRButton, XR } from '@react-three/xr';
+import Mode from './ui/Mode';
 
 const dev = false;
 
@@ -18,6 +19,7 @@ function App() {
   if (mode === Mods.vr) {
     return (
       <div className={styles.app}>
+        <Mode />
         <VRButton />
         <Canvas shadows>
         <XR>
@@ -34,6 +36,7 @@ function App() {
   
   return (
     <div className={styles.app}>
+      <Mode />
       {isMobile && <Joystick />}
       <Canvas
         shadows
