@@ -17,44 +17,46 @@ function App() {
   const isMobile = useDevice();
   const mode = useMode(s => s.mode);
 
-  if (mode === Mods.vr) {
-    return (
-      <div className={styles.app}>
-        <Mode />
-        <VRButton />
-        <Canvas shadows>
-        <XR>
-          <Environment />
-          <Controllers />
-          <Hands />
-          
-          <TempScene isVr />
-          {/* <DefaultScene /> */}
-        </XR>
-        </Canvas>
-      </div>
-    );
-  }
-  
   return (
     <div className={styles.app}>
       <Mode />
-      {isMobile && <Joystick />}
-      <Canvas
-        shadows
-        onPointerDown={(e) => {
-          if (e.pointerType === 'mouse') {
-            (e.target as HTMLCanvasElement).requestPointerLock();
-          }
-        }}
-      >
-        <Suspense>
-          {dev && <Perf position="top-left" />}
-          <Environment />
-          <TempScene />
-          {/* <DefaultScene /> */}
-        </Suspense>
-      </Canvas>
+      {{
+        vr: () => (
+          <>
+            <VRButton />
+            <Canvas shadows>
+            <XR>
+              <Environment />
+              <Controllers />
+              <Hands />
+              
+              <TempScene isVr />
+              {/* <DefaultScene /> */}
+            </XR>
+            </Canvas>
+          </>
+        ),
+        default: () => (
+          <>
+            {isMobile && <Joystick />}
+            <Canvas
+              shadows
+              onPointerDown={(e) => {
+                if (e.pointerType === 'mouse') {
+                  (e.target as HTMLCanvasElement).requestPointerLock();
+                }
+              }}
+            >
+              <Suspense>
+                {dev && <Perf position="top-left" />}
+                <Environment />
+                <TempScene />
+                {/* <DefaultScene /> */}
+              </Suspense>
+            </Canvas>
+          </>
+        )
+      }[mode]()}
     </div>
   );
 }
