@@ -8,6 +8,6 @@ interface PositionState {
 }
 
 export const usePosition = create<PositionState>()(subscribeWithSelector(set => ({
-  position: new Vector3(0, 0, 0),
+  position: new Vector3(0, 1, 0),
   setPosition: (v) => set((() => ({position: v}))),
 })));

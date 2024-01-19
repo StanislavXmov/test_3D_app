@@ -39,8 +39,8 @@ export const VRPlayer = () => {
       const body = rigRef.current;
       if (body) {
         body.sleep();
-        body.setTranslation(new Vector3(0, 0, 0), true);
-        player.position.set(0, 0, 0);
+        body.setTranslation(new Vector3(0, 1, 0), true);
+        player.position.set(0, 1, 0);
         return;
       }
     }

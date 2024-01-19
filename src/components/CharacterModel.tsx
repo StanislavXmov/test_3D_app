@@ -13,7 +13,7 @@ interface CharacterGLTF extends GLTF {
 };
 
 export const CharacterModel = () => {
-  const model = useGLTF('./character_model.glb') as CharacterGLTF;
+  const model = useGLTF('./character_model.glb') as unknown as CharacterGLTF;
   
   return (
     <group dispose={null} userData={{type: 'player'}} >
