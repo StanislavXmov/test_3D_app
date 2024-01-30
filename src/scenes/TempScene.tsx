@@ -4,6 +4,7 @@ import { Character } from '../components/Character';
 import { VRPlayer } from '../components/VRPlayer';
 import { Model } from '../components/Model';
 import { Vector3 } from 'three';
+import GlassModel from '../components/GlassModel';
 
 const vrD = 1.8;
 const vrScale = new Vector3(vrD, vrD, vrD);
@@ -26,7 +27,7 @@ export const TempScene = ({isVr}: {isVr?: boolean}) => {
   }
   
   return (
-    <Physics timeStep="vary">
+    <Physics timeStep="vary" debug={false}>
       {gameController}
       <RigidBody 
         type="fixed" 
@@ -39,52 +40,43 @@ export const TempScene = ({isVr}: {isVr?: boolean}) => {
         </mesh>
       </RigidBody>
       <Model
-        position={getPosition(new Vector3(1.5, 0, -3.5), isVr)}
+        position={getPosition(new Vector3(1.5, 0, -3), isVr)}
         materialName=''
-        nodeName='collider'
+        nodeName='mesh'
         rigidBody={true}
-        url='./cube.glb'
+        url='./mesh0.glb'
         scale={isVr ? vrScale : scale}
       />
       <Model
-        position={getPosition(new Vector3(-3, 0, -1), isVr)}
+        position={getPosition(new Vector3(1.5, 0, -3), isVr)}
         materialName=''
-        nodeName='collider'
+        nodeName='mesh'
         rigidBody={true}
-        url='./cube1.glb'
+        url='./mesh1.glb'
         scale={isVr ? vrScale : scale}
       />
       <Model
-        position={getPosition(new Vector3(-3, 2, -6), isVr)}
+        position={getPosition(new Vector3(1.5, 0, -3), isVr)}
         materialName=''
-        nodeName='collider'
+        nodeName='mesh'
         rigidBody={true}
-        url='./cube1.glb'
+        url='./mesh2.glb'
         scale={isVr ? vrScale : scale}
       />
       <Model
-        position={getPosition(new Vector3(-3, 2, -8), isVr)}
+        position={getPosition(new Vector3(1.5, 0, -3), isVr)}
         materialName=''
-        nodeName='collider'
-        rigidBody={true}
-        url='./cube1.glb'
-        scale={isVr ? vrScale : scale}
-      />
-      <Model
-        position={getPosition(new Vector3(-3, 0, -2), isVr)}
-        materialName=''
-        nodeName='collider'
-        rigidBody={true}
-        url='./cube2.glb'
-        scale={isVr ? vrScale : scale}
-      />
-      <Model
-        position={new Vector3(0, 0, -10)}
-        materialName='Material.004'
-        nodeName='Cube'
+        nodeName='env'
         rigidBody={false}
-        url='./character_model.glb'
+        url='./env_models.glb'
         scale={isVr ? vrScale : scale}
+      />
+      <GlassModel
+        position={getPosition(new Vector3(1.5, 0, -3), isVr)}
+        nodeName='glass'
+        url='./glass.glb'
+        scale={isVr ? vrScale : scale}
+        isVr={isVr}
       />
     </Physics>
   );

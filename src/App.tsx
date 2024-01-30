@@ -5,13 +5,13 @@ import { useDevice } from './hooks/useDevice';
 import { Joystick } from './components/Joystick';
 import { Suspense } from 'react';
 import { Environment } from './environment/Environment';
-import { DefaultScene } from './scenes/DefaultScene';
+// import { DefaultScene } from './scenes/DefaultScene';
 import { Mods, useMode } from './store/useMode';
 import { Controllers, Hands, VRButton, XR } from '@react-three/xr';
 import Mode from './ui/Mode';
 import { TempScene } from './scenes/TempScene';
 
-const dev = false;
+const dev = true;
 
 function App() {
   const isMobile = useDevice();
@@ -48,7 +48,7 @@ function App() {
               }}
             >
               <Suspense>
-                {dev && <Perf position="top-left" />}
+                {dev && <Perf position="bottom-left" />}
                 <Environment />
                 <TempScene />
                 {/* <DefaultScene /> */}
