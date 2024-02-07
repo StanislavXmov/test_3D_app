@@ -11,7 +11,7 @@ import { Controllers, Hands, VRButton, XR } from '@react-three/xr';
 import Mode from './ui/Mode';
 import { TempScene } from './scenes/TempScene';
 
-const dev = true;
+const dev = false;
 
 function App() {
   const isMobile = useDevice();
