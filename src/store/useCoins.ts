@@ -3,10 +3,13 @@ import { subscribeWithSelector, persist, createJSONStorage } from 'zustand/middl
 import { v4 as uuidv4 } from 'uuid';
 import { Vector3 } from 'three';
 
+const STORAGE = 'coins-local-storage';
+
 export type Coin = {
   id: string;
   position: Vector3;
   isActive: boolean;
+  date: string;
 }
 
 
@@ -18,19 +21,65 @@ type CoinsState = {
 
 type CoinsStoreState = {
   counter: number;
-  increase: () => void;
+  increase: (coin: Coin) => void;
+  currentDate: string;
+  coins: Coin[];
 }
 
 const coins: Coin[] = [
-  {id: uuidv4(), position: new Vector3(8, 1, 0), isActive: true},
-  {id: uuidv4(), position: new Vector3(6, 1, 0), isActive: true},
-  {id: uuidv4(), position: new Vector3(4, 1, 0), isActive: true},
-  {id: uuidv4(), position: new Vector3(2, 1, 0), isActive: true},
-  {id: uuidv4(), position: new Vector3(-4, 1, 0), isActive: true},
+  {id: uuidv4(), position: new Vector3(8, 1, 0), isActive: true, date: new Date().toLocaleString()},
+  {id: uuidv4(), position: new Vector3(6, 1, 0), isActive: true, date: new Date().toLocaleString()},
+  {id: uuidv4(), position: new Vector3(4, 1, 0), isActive: true, date: new Date().toLocaleString()},
+  {id: uuidv4(), position: new Vector3(2, 1, 0), isActive: true, date: new Date().toLocaleString()},
+  {id: uuidv4(), position: new Vector3(-4, 1, 0), isActive: true, date: new Date().toLocaleString()},
 ];
 
+const getCoins = () => {
+  const todayCoins: Coin[] = [];
+  let n = 0;
+
+  const storage = localStorage.getItem(STORAGE);
+  if (storage) {
+    const today = new Date();
+    const parserStorage: {state: CoinsStoreState} = JSON.parse(storage);
+    if (parserStorage.state.coins.length === 0) {
+      return coins;
+    }
+    for (let i = parserStorage.state.coins.length - 1; i > parserStorage.state.coins.length - 6; i--) {
+      const coin = parserStorage.state.coins[i];
+      if (!coin) {
+        n++;
+        continue;
+      }
+      
+      const coinDate = new Date(coin.date);
+      // console.log(today.getTime() - coinDate.getTime() > 1000 * 60 * 60 * 24);
+
+      if (today.getTime() - coinDate.getTime() > 1000 * 60 * 60) {
+        n++;
+        if (n === 5) {
+          break;
+        }
+      }
+    }
+    for (let j = 0; j < n; j++) {
+      todayCoins.push(coins[j]);
+    }
+    
+  } else {
+    localStorage.setItem(STORAGE, JSON.stringify({
+      coins: [],
+      currentDate: new Date().toLocaleString(),
+      counter: 0,
+    }));
+    return coins;
+  }
+
+  return todayCoins;
+}
+
 export const useCoins = create<CoinsState>()(subscribeWithSelector((set, get) => ({
-  coins: coins,
+  coins: getCoins(),
   getCoin: (id) => {
     const coins = get().coins;
     const coin = coins.find(c => c.id === id);
@@ -44,9 +93,11 @@ export const useCoins = create<CoinsState>()(subscribeWithSelector((set, get) =>
 
 
 export const useCoinsStore = create<CoinsStoreState>()(persist((set, get) => ({
+  coins: [],
+  currentDate: new Date().toLocaleString(),
   counter: 0,
-  increase: () => set((state) => ({counter: state.counter + 1})),
+  increase: (coin) => set((state) => ({counter: state.counter + 1, coins: [...state.coins, coin]})),
 }), {
-  name: 'coins-local-storage',
+  name: STORAGE,
   storage: createJSONStorage(() => localStorage),
 }));
