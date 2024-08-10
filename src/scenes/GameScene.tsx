@@ -1,9 +1,10 @@
-import { Physics, RigidBody } from '@react-three/rapier';
+import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier';
 import { Mods, useMode } from '../store/useMode';
 import { Character } from '../components/Character';
 import { VRPlayer } from '../components/VRPlayer';
 import { Model } from '../components/Model';
 import { Vector3 } from 'three';
+import { Coin } from '../components/gameDetails/Coin';
 
 const vrD = 1.8;
 const vrScale = new Vector3(vrD, vrD, vrD);
@@ -38,6 +39,10 @@ export const GameScene = ({isVr}: {isVr?: boolean}) => {
           <meshStandardMaterial color={'#2e2e2e'} />
         </mesh>
       </RigidBody>
+      <Coin isVr={isVr} position={new Vector3(8, 1, 0)} />
+      <Coin isVr={isVr} position={new Vector3(6, 1, 0)} />
+      <Coin isVr={isVr} position={new Vector3(4, 1, 0)} />
+      <Coin isVr={isVr} position={new Vector3(2, 1, 0)} />
     </Physics>
   );
 }
