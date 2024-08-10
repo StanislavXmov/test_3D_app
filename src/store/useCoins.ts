@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { subscribeWithSelector } from 'zustand/middleware';
+import { subscribeWithSelector, persist, createJSONStorage } from 'zustand/middleware';
 import { v4 as uuidv4 } from 'uuid';
 import { Vector3 } from 'three';
 
@@ -43,7 +43,10 @@ export const useCoins = create<CoinsState>()(subscribeWithSelector((set, get) =>
 })));
 
 
-export const useCoinsStore = create<CoinsStoreState>()(subscribeWithSelector((set, get) => ({
+export const useCoinsStore = create<CoinsStoreState>()(persist((set, get) => ({
   counter: 0,
   increase: () => set((state) => ({counter: state.counter + 1})),
-})));
+}), {
+  name: 'coins-local-storage',
+  storage: createJSONStorage(() => localStorage),
+}));
