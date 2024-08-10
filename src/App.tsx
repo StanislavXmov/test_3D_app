@@ -10,6 +10,7 @@ import { Mods, useMode } from './store/useMode';
 import { Controllers, Hands, VRButton, XR } from '@react-three/xr';
 import Mode from './ui/Mode';
 import { TempScene } from './scenes/TempScene';
+import { GameScene } from './scenes/GameScene';
 
 const dev = false;
 
@@ -30,7 +31,7 @@ function App() {
               <Controllers />
               <Hands />
               
-              <TempScene isVr />
+              <GameScene isVr />
               {/* <DefaultScene /> */}
             </XR>
             </Canvas>
@@ -50,7 +51,7 @@ function App() {
               <Suspense>
                 {dev && <Perf position="bottom-left" />}
                 <Environment />
-                <TempScene />
+                <GameScene />
                 {/* <DefaultScene /> */}
               </Suspense>
             </Canvas>

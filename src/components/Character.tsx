@@ -25,7 +25,7 @@ const animationSet = {
   jumpIdle: 'jump',
   jumpLand: 'jump',
   fall: 'jump',
-  action1: 'dance',
+  action1: 'action',
   action2: '',
   action3: '',
   action4: ''
@@ -73,10 +73,20 @@ export const Character = () => {
       <EcctrlController 
         ref={controllerRef} 
         position={position} 
-        animated followLight 
-        jumpVel={5}
+        animated
+        followLight 
+        jumpVel={3.5}
+        sprintMult={2.5}
+        // fpv
+        // camInitDis={-0.01}
+        // camMinDis={-0.01}
+        // camFollowMult={100}
+        // turnVelMultiplier={1}
+        // turnSpeed={100}
+        // mode="CameraBasedMovement"
       >
-        <EcctrlAnimation characterURL='./character_model.glb' animationSet={animationSet} >
+        <EcctrlAnimation characterURL='./xmov.glb' animationSet={animationSet} >
+        {/* <EcctrlAnimation characterURL='./character_model.glb' animationSet={animationSet} > */}
           <CharacterModel />
         </EcctrlAnimation>
       </EcctrlController>
