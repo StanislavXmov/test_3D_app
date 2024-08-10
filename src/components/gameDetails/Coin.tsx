@@ -3,6 +3,7 @@ import { Model } from "../Model"
 import { animated, useSpring } from "@react-spring/three";
 import { useState } from "react";
 import { CuboidCollider } from "@react-three/rapier";
+import { useCoins, useCoinsStore, type Coin as CoinProps } from "../../store/useCoins";
 
 const vrD = 1.8;
 const vrScale = new Vector3(vrD, vrD, vrD);
@@ -15,8 +16,12 @@ const getPosition = (v: Vector3, isVr: boolean) => {
   return v;
 }
 
-export const Coin = ({isVr, position: {x, y, z}}: {isVr?: boolean, position: Vector3}) => {
+export const Coin = ({isVr, coinProps}: {isVr?: boolean, coinProps: CoinProps}) => {
   const [isAlive, setIsAlive] = useState(true);
+  const {position: {x, y, z}, id} = coinProps;
+  
+  const getCoin = useCoins(s => s.getCoin);
+  const increase = useCoinsStore(s => s.increase);
   const [active, setActive] = useState(0);
   const { rotation } = useSpring({
     from: {
@@ -48,6 +53,8 @@ export const Coin = ({isVr, position: {x, y, z}}: {isVr?: boolean, position: Vec
     },
     onRest: (e) => {
       if (e.finished === true) {
+        getCoin(id);
+        increase();
         setIsAlive(false);
       }
   },

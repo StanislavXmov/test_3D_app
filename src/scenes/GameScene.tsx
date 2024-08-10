@@ -5,6 +5,7 @@ import { VRPlayer } from '../components/VRPlayer';
 import { Model } from '../components/Model';
 import { Vector3 } from 'three';
 import { Coin } from '../components/gameDetails/Coin';
+import { useCoins } from '../store/useCoins';
 
 const vrD = 1.8;
 const vrScale = new Vector3(vrD, vrD, vrD);
@@ -19,6 +20,7 @@ const getPosition = (v: Vector3, isVr: boolean) => {
 
 export const GameScene = ({isVr}: {isVr?: boolean}) => {
   const mode = useMode(s => s.mode);
+  const coins = useCoins(s => s.coins);
   const width = isVr ? 32 * vrD : 32;
 
   let gameController = <Character />;
@@ -39,10 +41,11 @@ export const GameScene = ({isVr}: {isVr?: boolean}) => {
           <meshStandardMaterial color={'#2e2e2e'} />
         </mesh>
       </RigidBody>
-      <Coin isVr={isVr} position={new Vector3(8, 1, 0)} />
-      <Coin isVr={isVr} position={new Vector3(6, 1, 0)} />
-      <Coin isVr={isVr} position={new Vector3(4, 1, 0)} />
-      <Coin isVr={isVr} position={new Vector3(2, 1, 0)} />
+      {/* <Coin isVr={isVr} position={new Vector3(8, 1, 0)} /> */}
+      {coins.map(c => (
+        <Coin key={c.id} isVr={isVr} coinProps={c} />
+      ))}
+      
     </Physics>
   );
 }

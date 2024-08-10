@@ -28,3 +28,30 @@
 .active {
   background: #ffffff;
 }
+
+
+.coinCounterWrapper {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  z-index: 10;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.coinImage {
+  width: 32px;
+  height: 32px;
+}
+
+.counter {
+  font-size: 24px;
+  color: #ffffff;
+}

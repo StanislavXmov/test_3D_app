@@ -11,6 +11,7 @@ import { Controllers, Hands, VRButton, XR } from '@react-three/xr';
 import Mode from './ui/Mode';
 import { TempScene } from './scenes/TempScene';
 import { GameScene } from './scenes/GameScene';
+import { CoinsCounter } from './components/gameDetails/CoinsCounter';
 
 const dev = false;
 
@@ -20,7 +21,8 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <Mode />
+      {/* <Mode /> */}
+      <CoinsCounter />
       {{
         vr: () => (
           <>
