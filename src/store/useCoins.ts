@@ -27,11 +27,11 @@ type CoinsStoreState = {
 }
 
 const coins: Coin[] = [
-  {id: uuidv4(), position: new Vector3(8, 1, 0), isActive: true, date: new Date().toLocaleString()},
-  {id: uuidv4(), position: new Vector3(6, 1, 0), isActive: true, date: new Date().toLocaleString()},
-  {id: uuidv4(), position: new Vector3(4, 1, 0), isActive: true, date: new Date().toLocaleString()},
-  {id: uuidv4(), position: new Vector3(2, 1, 0), isActive: true, date: new Date().toLocaleString()},
-  {id: uuidv4(), position: new Vector3(-4, 1, 0), isActive: true, date: new Date().toLocaleString()},
+  {id: uuidv4(), position: new Vector3(3, 15, -6), isActive: true, date: new Date().toLocaleString()},
+  {id: uuidv4(), position: new Vector3(12, 11, 3), isActive: true, date: new Date().toLocaleString()},
+  {id: uuidv4(), position: new Vector3(-3, 8, -12), isActive: true, date: new Date().toLocaleString()},
+  {id: uuidv4(), position: new Vector3(-12, 5, 6), isActive: true, date: new Date().toLocaleString()},
+  {id: uuidv4(), position: new Vector3(12, 2, 12), isActive: true, date: new Date().toLocaleString()},
 ];
 
 const getCoins = () => {

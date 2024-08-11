@@ -6,6 +6,7 @@ import { Model } from '../components/Model';
 import { Vector3 } from 'three';
 import { Coin } from '../components/gameDetails/Coin';
 import { useCoins } from '../store/useCoins';
+import { Platform } from '../components/gameDetails/Platform';
 
 const vrD = 1.8;
 const vrScale = new Vector3(vrD, vrD, vrD);
@@ -17,6 +18,23 @@ const getPosition = (v: Vector3, isVr: boolean) => {
   }
   return v;
 }
+
+const platforms = [
+  new Vector3(12, 1, 12),
+  new Vector3(3, 2, 12),
+  new Vector3(-6, 3, 12),
+  new Vector3(-12, 4, 6),
+  new Vector3(-12, 5, -3),
+  new Vector3(-12, 6, -12),
+  new Vector3(-3, 7, -12),
+  new Vector3(6, 8, -12),
+  new Vector3(12, 9, -6),
+  new Vector3(12, 10, 3),
+  new Vector3(3, 11, 3),
+  new Vector3(-6, 12, 3),
+  new Vector3(-6, 13, -6),
+  new Vector3(3, 14, -6),
+];
 
 export const GameScene = ({isVr}: {isVr?: boolean}) => {
   const mode = useMode(s => s.mode);
@@ -41,6 +59,9 @@ export const GameScene = ({isVr}: {isVr?: boolean}) => {
           <meshStandardMaterial color={'#2e2e2e'} />
         </mesh>
       </RigidBody>
+      {platforms.map((p, i) => (
+        <Platform key={i} position={p} />
+      ))}
       {/* <Coin isVr={isVr} position={new Vector3(8, 1, 0)} /> */}
       {coins.map(c => (
         <Coin key={c.id} isVr={isVr} coinProps={c} />
