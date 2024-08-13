@@ -54,7 +54,7 @@ export const Coin = ({isVr, coinProps}: {isVr?: boolean, coinProps: CoinProps}) 
     onRest: (e) => {
       if (e.finished === true) {
         getCoin(id);
-        coinProps.date = new Date().toLocaleString();
+        coinProps.date = new Date().getTime().toString();
         increase(coinProps);
         setIsAlive(false);
       }

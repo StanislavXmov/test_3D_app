@@ -27,11 +27,11 @@ type CoinsStoreState = {
 }
 
 const coins: Coin[] = [
-  {id: uuidv4(), position: new Vector3(3, 15, -6), isActive: true, date: new Date().toLocaleString()},
-  {id: uuidv4(), position: new Vector3(12, 11, 3), isActive: true, date: new Date().toLocaleString()},
-  {id: uuidv4(), position: new Vector3(-3, 8, -12), isActive: true, date: new Date().toLocaleString()},
-  {id: uuidv4(), position: new Vector3(-12, 5, 6), isActive: true, date: new Date().toLocaleString()},
-  {id: uuidv4(), position: new Vector3(12, 2, 12), isActive: true, date: new Date().toLocaleString()},
+  {id: uuidv4(), position: new Vector3(3, 15, -6), isActive: true, date: new Date().getTime().toString()},
+  {id: uuidv4(), position: new Vector3(12, 11, 3), isActive: true, date: new Date().getTime().toString()},
+  {id: uuidv4(), position: new Vector3(-3, 8, -12), isActive: true, date: new Date().getTime().toString()},
+  {id: uuidv4(), position: new Vector3(-12, 5, 6), isActive: true, date: new Date().getTime().toString()},
+  {id: uuidv4(), position: new Vector3(12, 2, 12), isActive: true, date: new Date().getTime().toString()},
 ];
 
 const getCoins = () => {
@@ -52,10 +52,9 @@ const getCoins = () => {
         continue;
       }
       
-      const coinDate = new Date(coin.date);
-      // console.log(today.getTime() - coinDate.getTime() > 1000 * 60 * 60 * 24);
-
-      if (today.getTime() - coinDate.getTime() > 1000 * 60 * 60) {
+      const coinDate = new Date(Number(coin.date));
+      
+      if (today.getTime() - coinDate.getTime() > 1000 * 60) {
         n++;
         if (n === 5) {
           break;
